@@ -26,7 +26,30 @@ use General\Utils;
  }
 
  /**
-  * let's test 
+  * let's test that the function returns different numbers over multiple calls.
   */
- 
+
+   function testRandomNumberIsUnique() 
+  {
+    $min = 1;
+    $max = 20;
+
+    echo "Test 2: Check randomness\n";
+
+    $results = [];
+
+    for($i = 0; $i < 20 ; $i++){
+        $results[] = Utils::getSecureRandom($min , $max);
+    }
+
+    $uniqueResults = array_unique($results);
+    echo count($uniqueResults);
+    if (count($uniqueResults) < 10) {
+        echo "FAIL: Random numbers are not unique enough\n";
+    } else {
+        echo "PASS: Random numbers appear sufficiently unique\n";
+    }
+
+  }
+
 ?>
