@@ -18,11 +18,11 @@ use General\Utils;
     for ($i = 0 ; $i < 10 ; $i++){
         $randomNumber = Utils::getSecureRandom($min, $max);
         if($randomNumber < $min || $randomNumber > $max){
-            echo "Test 1 failed: Random number $randomNumber is not within the range [$min,$max]\n";
+            echo "[FAIL]: Random number $randomNumber is not within the range [$min,$max]\n";
             return;
         }
     }
-    echo "Test 1 passed: All numbers are within range\n";
+    echo "[PASS]: All numbers are within range\n";
  }
 
  /**
@@ -43,13 +43,35 @@ use General\Utils;
     }
 
     $uniqueResults = array_unique($results);
-    echo count($uniqueResults);
+    
     if (count($uniqueResults) < 10) {
-        echo "FAIL: Random numbers are not unique enough\n";
+        echo "[FAIL]: Random numbers are not unique enough\n";
     } else {
-        echo "PASS: Random numbers appear sufficiently unique\n";
+        echo "[PASS]: Random numbers appear sufficiently unique\n";
     }
 
   }
+
+  /**
+   * let's test if the function can handle edge cases
+   */
+
+   function testEdgeCaseSameMinMax()
+{
+    $min = 5;
+    $max = 5;
+    echo "Test 3: Handle edge case (min == max)\n";
+
+    for ($i = 0; $i < 10; $i++) {
+        
+        $randomNumber = Utils::getSecureRandom($min, $max);
+
+        if ($randomNumber !== $min) { 
+            echo "[FAIL]: Expected $min, got $randomNumber\n";
+            return;
+        }
+    }
+    echo "[PASS]: Edge case handled correctly\n";
+}
 
 ?>
