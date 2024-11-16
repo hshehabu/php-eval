@@ -11,6 +11,11 @@ class Utils {
      * @return void
      */
     static function getSecureRandom($min, $max) {
+
+		if($min > $max){
+   			throw new \Exception('Invalid range: min should be less than max');
+		}
+
 		$range = $max - $min;
 		$range_log = log($range, 2);
 		$bytes_to_fetch = (int) ($range_log / 8) + 1;

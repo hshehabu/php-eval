@@ -3,6 +3,17 @@
 require_once('utils.php');
 use General\Utils;
 
+
+function runTests()
+{
+    echo "\n=== Testing getSecureRandom ===\n";
+    testRandomNumberWithinRange();
+    testRandomNumberIsUnique();
+    testEdgeCaseSameMinMax();
+    testInvalidRange();
+    echo "=== All Tests Completed ===\n";
+}
+
 /**
  * let's verify the numbers are in range
  * 
@@ -74,4 +85,22 @@ use General\Utils;
     echo "[PASS]: Edge case handled correctly\n";
 }
 
+/**
+ * let's test if the min > max
+ */
+
+ function testInvalidRange() 
+ {
+    $min = 20;
+    $max = 10;
+    echo "Test 4: Invalid range (min > max)\n";
+
+    try {
+        Utils::getSecureRandom($min, $max);
+        echo "[FAIL]: Function did not handle invalid input (min > max)\n";
+    } catch (Exception $e) {
+        echo "[PASS]: Function threw exception for invalid range\n";
+    }
+ }
+runTests();
 ?>
